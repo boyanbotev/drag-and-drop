@@ -1,0 +1,101 @@
+:root {
+    --cream-light: rgba(254, 255, 227, 1);
+    --cream-transparent: rgba(254, 255, 227, 0.4);
+    --cream--semi-transparent: rgba(254, 255, 227, 0.8);
+    --cream-dark: rgb(223, 223, 174);
+
+    --font-size: 84px;
+}
+
+.main {
+    padding: 4%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.header, .footer {
+    background-color: var(--cream-dark);
+    border-color: var(--cream-dark);
+}
+
+.header {
+    justify-content: center;
+    padding-left: 24px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 20px;
+    border-bottom-width: 2px;
+}
+
+.body {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--cream-dark);
+}
+
+.footer {
+    height: 20px;
+    flex-direction: row;
+    color:#ffffff;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 24px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-width: 2px;
+}
+
+.sections {
+    flex: 1;
+}
+
+.writing-lines {
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.writing-line {
+    border-color: var(--cream-dark);
+    align-items: center;
+    justify-content: flex-end;
+
+    border-radius: 10px;
+    border-width: 2px;
+    padding: 0 10px;
+    margin: 2px;
+    background-color: var(--cream-transparent);
+    height: 100%;
+}
+
+.draggable-letters {
+    flex: 1;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.draggable-letter {
+    border-radius: 10px;
+    border-width: 2px;
+    padding: 0 10px;
+    border-color: var(--cream-dark);
+    background-color: var(--cream-light);
+    margin: 2%;
+}
+
+.draggable-letter Label {
+    font-size: 42px;
+    -unity-font-definition: url('project:/Assets/Fonts/Helvetica SDF.asset');
+    -unity-text-align: middle-center;
+}
+
+.horizontal-line {
+    height: 4px;
+    background-color: black;
+    width: 50px;
+    margin: 10px;
+}
