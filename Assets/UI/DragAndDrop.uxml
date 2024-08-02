@@ -4,28 +4,8 @@
         <ui:VisualElement class="sections">
             <ui:VisualElement class="header" />
             <ui:VisualElement class="body">
-                <ui:VisualElement class="writing-lines">
-                    <ui:VisualElement name="VisualElement" class="writing-line">
-                        <ui:VisualElement class="horizontal-line"></ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="writing-line">
-                        <ui:VisualElement class="horizontal-line"></ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="writing-line">
-                        <ui:VisualElement class="horizontal-line"></ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement class="draggable-letters">
-                    <ui:VisualElement class="draggable-letter">
-                        <ui:Label text="p" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                    <ui:VisualElement class="draggable-letter">
-                        <ui:Label text="t" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                    <ui:VisualElement class="draggable-letter">
-                        <ui:Label text="i" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
+                <ui:VisualElement class="writing-lines"></ui:VisualElement>
+                <ui:VisualElement class="draggable-letters"></ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="footer" />
         </ui:VisualElement>

@@ -21,7 +21,7 @@ MonoBehaviour:
   m_FallbackDpi: 96
   m_ReferenceResolution: {x: 800, y: 360}
   m_ScreenMatchMode: 0
-  m_Match: 0
+  m_Match: 0.226
   m_SortingOrder: 0
   m_TargetDisplay: 0
   m_ClearDepthStencil: 1
