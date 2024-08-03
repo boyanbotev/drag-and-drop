@@ -82,47 +82,36 @@ public class DragAndDropManager : MonoBehaviour
     {
         if (isDragging && draggedElement != null)
         {
-            bool isValid = false;
-            WritingLine target = null;
+            WritingLine target = GetTarget(draggedElement);
 
-            foreach (var line in writingLines)
+            if (draggedLetter.line != null)
             {
-                if (IsOverlapping(draggedLetter, line))
-                {
-                    target = line;
-                    isValid = true;
-                    break;
-                }
+                // set old writing line's letter reference to null
+                draggedLetter.line.letter = null;
             }
 
-            if (isValid)
+            if (target != null)
             {
+                // If there's a letter on the new position
                 if (target.letter != null && target.letter != draggedLetter)
                 {
                     if (draggedLetter.line != null)
                     {
+                        // Swap
                         draggedLetter.line.AddLetter(target.letter);
                     } 
                     else
                     {
+                        // Move old letter back to original position
                         ResetLetter(target.letter);
                     }
-                } 
-                else if (draggedLetter.line != null)
-                {
-                    draggedLetter.line.letter = null;
-                    draggedLetter.line = null;
                 }
 
+                // move to new pos
                 target.AddLetter(draggedLetter);
             }
             else
             {
-                if (draggedLetter.line != null)
-                {
-                    draggedLetter.line.letter = null;
-                }
-
                 ResetLetter(draggedLetter);
             }
 
@@ -130,6 +119,22 @@ public class DragAndDropManager : MonoBehaviour
             isDragging = false;
             draggedElement = null;
         }
+    }
+
+    private WritingLine GetTarget(DraggableLetter draggedLetter)
+    {
+        WritingLine target = null;
+
+        foreach (var line in writingLines)
+        {
+            if (IsOverlapping(draggedLetter, line))
+            {
+                target = line;
+                break;
+            }
+        }
+
+        return target;
     }
 
     private void ResetLetter(DraggableLetter draggedLetter)
