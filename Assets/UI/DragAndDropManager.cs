@@ -12,16 +12,13 @@ public class DragAndDropManager : MonoBehaviour
     private UIDocument uiDoc;
     VisualElement root;
     VisualElement draggableLettersEl;
-    private VisualElement draggedElement;
+    private DraggableLetter draggedElement;
     bool isDragging = false;
-    private Vector2 originalPosition;
 
     private string draggableLettersClassName = "draggable-letters";
-    private string draggableLetterClassName = "draggable-letter";
-    private string writingLineClassName = "writing-line";
     private string writingLinesClassName = "writing-lines";
 
-    private List<VisualElement> writingLines;
+    private List<WritingLine> writingLines;
 
     private void OnEnable()
     {
@@ -37,11 +34,8 @@ public class DragAndDropManager : MonoBehaviour
 
         foreach (string letter in letters)
         {
-            var draggableLetter = new VisualElement();
-            draggableLetter.AddToClassList(draggableLetterClassName);
-
-            var letterLabel = new Label(letter);
-            draggableLetter.Add(letterLabel);
+            var draggableLetter = new DraggableLetter();
+            draggableLetter.Setup(letter);
 
             draggableLetter.RegisterCallback<PointerDownEvent>(evt => OnDragStart(evt, draggableLetter));
             draggableLetter.RegisterCallback<PointerMoveEvent>(evt => OnDrag(evt, draggableLetter));
@@ -57,49 +51,43 @@ public class DragAndDropManager : MonoBehaviour
 
         for (int i = 0; i < writingLineCount; i++)
         {
-            VisualElement lineContainerEl = new();
-            lineContainerEl.AddToClassList(writingLineClassName);
+            var writingLine = new WritingLine();
+            writingLine.SetUp();
 
-            VisualElement lineEl = new();
-            lineEl.AddToClassList("horizontal-line");
-
-            lineContainerEl.Add(lineEl);
-            writingLinesEl.Add(lineContainerEl);
-
-            writingLines.Add(lineContainerEl);
+            writingLinesEl.Add(writingLine);
+            writingLines.Add(writingLine);
         }
     }
 
-    private void OnDragStart(PointerDownEvent evt, VisualElement draggableLetter)
+    private void OnDragStart(PointerDownEvent evt, DraggableLetter letter)
     {
-        draggedElement = draggableLetter;
+        draggedElement = letter;
+        letter.CalculatePos();
         isDragging = true;
-        draggableLetter.CaptureMouse();
-        Vector2 pos = draggedElement.worldTransform.GetPosition();
-        originalPosition = new Vector2(pos.x - draggableLetter.style.left.value.value, pos.y - draggableLetter.style.top.value.value);
+        letter.CaptureMouse();
     }
 
-    private void OnDrag(PointerMoveEvent evt, VisualElement draggableLetter)
+    private void OnDrag(PointerMoveEvent evt, DraggableLetter letter)
     {
         if (isDragging && draggedElement != null && draggedElement.HasMouseCapture())
         {
             Vector2 mousePosition = evt.position;
 
-            draggedElement.style.left = mousePosition.x - originalPosition.x - draggedElement.resolvedStyle.width / 2;
-            draggedElement.style.top = mousePosition.y - originalPosition.y - draggedElement.resolvedStyle.height / 2;
+            draggedElement.style.left = mousePosition.x - draggedElement.originalPos.x - draggedElement.resolvedStyle.width / 2;
+            draggedElement.style.top = mousePosition.y - draggedElement.originalPos.y - draggedElement.resolvedStyle.height / 2;
         }
     }
 
-    private void OnDragEnd(PointerUpEvent evt, VisualElement draggableLetter)
+    private void OnDragEnd(PointerUpEvent evt, DraggableLetter draggedLetter)
     {
         if (isDragging && draggedElement != null)
         {
             bool isValid = false;
-            VisualElement target = null;
+            WritingLine target = null;
 
             foreach (var line in writingLines)
             {
-                if (IsOverlapping(draggableLetter, line))
+                if (IsOverlapping(draggedLetter, line))
                 {
                     target = line;
                     isValid = true;
@@ -107,16 +95,35 @@ public class DragAndDropManager : MonoBehaviour
                 }
             }
 
-            // TODO: Add code for whether to swap
-
             if (isValid)
             {
-                SnapToTarget(draggableLetter, target);
+                if (target.letter != null && target.letter != draggedLetter)
+                {
+                    if (draggedLetter.line != null)
+                    {
+                        draggedLetter.line.AddLetter(target.letter);
+                    } 
+                    else
+                    {
+                        ResetLetter(target.letter);
+                    }
+                } 
+                else if (draggedLetter.line != null)
+                {
+                    draggedLetter.line.letter = null;
+                    draggedLetter.line = null;
+                }
+
+                target.AddLetter(draggedLetter);
             }
             else
             {
-                draggableLetter.style.left = 0;
-                draggableLetter.style.top = 0;
+                if (draggedLetter.line != null)
+                {
+                    draggedLetter.line.letter = null;
+                }
+
+                ResetLetter(draggedLetter);
             }
 
             draggedElement.ReleaseMouse();
@@ -125,19 +132,18 @@ public class DragAndDropManager : MonoBehaviour
         }
     }
 
+    private void ResetLetter(DraggableLetter draggedLetter)
+    {
+        draggedLetter.style.left = 0;
+        draggedLetter.style.top = 0;
+ 
+        draggedLetter.line = null;
+    }
+
     private bool IsOverlapping(VisualElement a, VisualElement b)
     {
         Rect rect1 = new(a.worldBound.position, a.worldBound.size);
         Rect rect2 = new(b.worldBound.position, b.worldBound.size);
         return rect1.Overlaps(rect2);
-    }
-
-    private void SnapToTarget(VisualElement dragged, VisualElement target)
-    {
-        Vector2 targetPos = target.worldTransform.GetPosition();
-        Vector2 dir = new(targetPos.x - originalPosition.x, targetPos.y - originalPosition.y);
-
-        dragged.style.left = dir.x + (target.resolvedStyle.width - dragged.resolvedStyle.width) / 2;
-        dragged.style.top = dir.y + (target.resolvedStyle.height - dragged.resolvedStyle.height) / 2;
     }
 }
