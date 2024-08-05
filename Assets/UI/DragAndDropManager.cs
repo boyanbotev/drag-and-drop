@@ -1,17 +1,18 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class DragAndDropManager : MonoBehaviour
 {
     [SerializeField] string[] letters = { "p", "t", "i" };
+    [SerializeField] string word = "pit";
     [SerializeField] int writingLineCount = 3;
 
     private UIDocument uiDoc;
     VisualElement root;
     VisualElement draggableLettersEl;
+    VisualElement body;
     private DraggableLetter draggedElement;
     bool isDragging = false;
 
@@ -25,6 +26,7 @@ public class DragAndDropManager : MonoBehaviour
         uiDoc = GetComponent<UIDocument>();
         root = uiDoc.rootVisualElement;
         draggableLettersEl = root.Q(className: draggableLettersClassName);
+        body = root.Q(className: "body");
 
         CreateDraggableLetters();
         CreateWritingLines();
@@ -71,10 +73,7 @@ public class DragAndDropManager : MonoBehaviour
     {
         if (isDragging && draggedElement != null && draggedElement.HasMouseCapture())
         {
-            Vector2 mousePosition = evt.position;
-
-            draggedElement.style.left = mousePosition.x - draggedElement.originalPos.x - draggedElement.resolvedStyle.width / 2;
-            draggedElement.style.top = mousePosition.y - draggedElement.originalPos.y - draggedElement.resolvedStyle.height / 2;
+            SetDraggedPos(evt.position);
         }
     }
 
@@ -115,9 +114,48 @@ public class DragAndDropManager : MonoBehaviour
                 ResetLetter(draggedLetter);
             }
 
+            EvaluateWord();
+
             draggedElement.ReleaseMouse();
             isDragging = false;
             draggedElement = null;
+        }
+    }
+
+    void SetDraggedPos(Vector2 pos)
+    {
+        float elementWidth = draggedElement.resolvedStyle.width;
+        float elementHeight = draggedElement.resolvedStyle.height;
+
+        var clampedPos = new Vector2(
+            Math.Clamp(pos.x, body.worldBound.x + elementWidth / 2, body.worldBound.x + body.worldBound.width - elementWidth / 2),
+            Math.Clamp(pos.y, body.worldBound.y + elementHeight / 2, body.worldBound.y + body.worldBound.height - elementHeight / 2)
+        );
+
+        var adjustedPos = new Vector2(
+            clampedPos.x - draggedElement.originalPos.x - elementWidth / 2,
+            clampedPos.y - draggedElement.originalPos.y - elementHeight / 2
+        );
+
+        draggedElement.style.left = adjustedPos.x;
+        draggedElement.style.top = adjustedPos.y;
+    }
+
+    void EvaluateWord()
+    {
+        string joinedWord = "";
+
+        foreach (var writingLine in writingLines)
+        {
+            if (writingLine.letter != null)
+            {
+                joinedWord += writingLine.letter.value;
+            }
+        }
+
+        if (joinedWord == word)
+        {
+            Debug.Log("VICTORY");
         }
     }
 

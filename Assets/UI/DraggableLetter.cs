@@ -8,10 +8,12 @@ public class DraggableLetter : VisualElement
 {
     public WritingLine line;
     public Vector2 originalPos;
+    public string value;
     private string draggableLetterClassName = "draggable-letter";
 
     public void Setup(string letter)
     {
+        value = letter;
         AddToClassList(draggableLetterClassName);
 
         var letterLabel = new Label(letter);
