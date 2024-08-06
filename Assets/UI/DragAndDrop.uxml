@@ -5,6 +5,7 @@
             <ui:VisualElement class="header" />
             <ui:VisualElement class="body">
                 <ui:VisualElement class="writing-lines"></ui:VisualElement>
+                <ui:VisualElement class="images"></ui:VisualElement>
                 <ui:VisualElement class="draggable-letters"></ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="footer" />

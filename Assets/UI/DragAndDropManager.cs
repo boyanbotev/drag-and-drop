@@ -5,13 +5,14 @@ using UnityEngine.UIElements;
 
 public class DragAndDropManager : MonoBehaviour
 {
-    [SerializeField] string[] letters = { "p", "t", "i" };
-    [SerializeField] string word = "pit";
-    [SerializeField] int writingLineCount = 3;
+    [SerializeField] DragAndDropItem[] dragAndDropSequence;
+    private int itemIndex = 0;
 
     private UIDocument uiDoc;
     VisualElement root;
     VisualElement draggableLettersEl;
+    VisualElement writingLinesEl;
+    VisualElement imageEl;
     VisualElement body;
     private DraggableLetter draggedElement;
     bool isDragging = false;
@@ -26,15 +27,19 @@ public class DragAndDropManager : MonoBehaviour
         uiDoc = GetComponent<UIDocument>();
         root = uiDoc.rootVisualElement;
         draggableLettersEl = root.Q(className: draggableLettersClassName);
+        writingLinesEl = root.Q(className: writingLinesClassName);
+        imageEl = root.Q(className: "images");
         body = root.Q(className: "body");
 
         CreateDraggableLetters();
         CreateWritingLines();
+        CreateImage();
     }
 
     void CreateDraggableLetters() {
+        draggableLettersEl.Clear();
 
-        foreach (string letter in letters)
+        foreach (string letter in dragAndDropSequence[itemIndex].letters)
         {
             var draggableLetter = new DraggableLetter();
             draggableLetter.Setup(letter);
@@ -48,10 +53,10 @@ public class DragAndDropManager : MonoBehaviour
 
     void CreateWritingLines()
     {
-        var writingLinesEl = root.Q(className: writingLinesClassName);
         writingLines = new();
+        writingLinesEl.Clear();
 
-        for (int i = 0; i < writingLineCount; i++)
+        for (int i = 0; i < dragAndDropSequence[itemIndex].word.Length; i++)
         {
             var writingLine = new WritingLine();
             writingLine.SetUp();
@@ -60,6 +65,16 @@ public class DragAndDropManager : MonoBehaviour
             writingLines.Add(writingLine);
         }
     }
+
+    void CreateImage()
+    {
+        imageEl.Clear();
+
+        Image image = new Image();
+        image.image = dragAndDropSequence[itemIndex].texture;
+        imageEl.Add(image);
+    }
+
 
     private void OnDragStart(PointerDownEvent evt, DraggableLetter letter)
     {
@@ -153,10 +168,20 @@ public class DragAndDropManager : MonoBehaviour
             }
         }
 
-        if (joinedWord == word)
+        if (joinedWord == dragAndDropSequence[itemIndex].word)
         {
             Debug.Log("VICTORY");
+            ResetGame();
         }
+    }
+
+    void ResetGame()
+    {
+        itemIndex++;
+
+        CreateDraggableLetters();
+        CreateWritingLines();
+        CreateImage();
     }
 
     private WritingLine GetTarget(DraggableLetter draggedLetter)

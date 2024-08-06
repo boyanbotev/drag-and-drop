@@ -70,6 +70,17 @@
     height: 100%;
 }
 
+.image {
+    width: 100px;
+    height: 100px;
+}
+.images {
+    position: absolute;
+    left: -100px;
+    width: 100px;
+    height: 100px;
+}
+
 .draggable-letters {
     flex: 1;
     width: 100%;
