@@ -72,6 +72,7 @@ public class DragAndDropManager : MonoBehaviour
 
         Image image = new Image();
         image.image = dragAndDropSequence[itemIndex].texture;
+        image.AddToClassList("image");
         imageEl.Add(image);
     }
 
