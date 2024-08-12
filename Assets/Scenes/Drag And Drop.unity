@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 77455534}
   - component: {fileID: 77455535}
   m_Layer: 0
-  m_Name: DragAndDropItem (4)
+  m_Name: tin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,12 +320,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragAndDropSequence:
-  - {fileID: 1691000148}
-  - {fileID: 477904911}
   - {fileID: 1926504783}
   - {fileID: 1187183408}
   - {fileID: 77455535}
   - {fileID: 770084746}
+  - {fileID: 1691000148}
+  - {fileID: 477904911}
 --- !u!1 &477904909
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 477904910}
   - component: {fileID: 477904911}
   m_Layer: 0
-  m_Name: DragAndDropItem (1)
+  m_Name: santa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 770084745}
   - component: {fileID: 770084746}
   m_Layer: 0
-  m_Name: DragAndDropItem (5)
+  m_Name: pan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 1187183407}
   - component: {fileID: 1187183408}
   m_Layer: 0
-  m_Name: DragAndDropItem (3)
+  m_Name: pin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 1691000147}
   - component: {fileID: 1691000148}
   m_Layer: 0
-  m_Name: DragAndDropItem
+  m_Name: pants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,12 +721,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1691000147}
-  - {fileID: 477904910}
   - {fileID: 1926504782}
   - {fileID: 1187183407}
   - {fileID: 77455534}
   - {fileID: 770084745}
+  - {fileID: 1691000147}
+  - {fileID: 477904910}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1926504781
@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 1926504782}
   - component: {fileID: 1926504783}
   m_Layer: 0
-  m_Name: DragAndDropItem (2)
+  m_Name: ant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
