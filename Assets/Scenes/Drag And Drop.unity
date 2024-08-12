@@ -470,6 +470,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &735363652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 735363653}
+  - component: {fileID: 735363654}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &735363653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735363652}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &735363654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735363652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b27a2833b5c8a4eb280063b33aa4ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: a
+    audioClip: {fileID: 8300000, guid: 0726bf28e3e6a2444af5532c1e66b313, type: 3}
+  - name: ant
+    audioClip: {fileID: 8300000, guid: a8c6243a00faf15438d93c4f77002868, type: 3}
+  - name: i
+    audioClip: {fileID: 8300000, guid: 2a89843125245114b869669c6c82117d, type: 3}
+  - name: n
+    audioClip: {fileID: 8300000, guid: e0332c385d569494e99d593b8e40ef2e, type: 3}
+  - name: p
+    audioClip: {fileID: 8300000, guid: d2e4474749ce2b44e8b45dfc48d42f9d, type: 3}
+  - name: pan
+    audioClip: {fileID: 8300000, guid: a6fe4e6c49a2d2044980a5d4ba779abb, type: 3}
+  - name: pants
+    audioClip: {fileID: 8300000, guid: 9b84953ecbde26948a9a0bedfb82b8df, type: 3}
+  - name: pin
+    audioClip: {fileID: 8300000, guid: 3ad879f43ab02d4479c13f28d7504b70, type: 3}
+  - name: s
+    audioClip: {fileID: 8300000, guid: 26b095e6ca6d92c4ebb8c97620bb67e1, type: 3}
+  - name: santa
+    audioClip: {fileID: 8300000, guid: b3bc7733c0d0eac498d6eaca844dfef7, type: 3}
+  - name: t
+    audioClip: {fileID: 8300000, guid: bed150337a84bba489248941b4201017, type: 3}
+  - name: tin
+    audioClip: {fileID: 8300000, guid: 96cd4e65d23f52344b03e3b60a5ec199, type: 3}
 --- !u!1 &770084744
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,3 +787,4 @@ SceneRoots:
   - {fileID: 391203494}
   - {fileID: 26343751}
   - {fileID: 1898730900}
+  - {fileID: 735363653}

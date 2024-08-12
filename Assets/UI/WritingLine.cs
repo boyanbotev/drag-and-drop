@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,7 +10,7 @@ public class WritingLine : VisualElement
     private string writingLineClassName = "writing-line";
     private string lineClassName = "horizontal-line";
 
-    public void SetUp()
+    public WritingLine()
     {
         AddToClassList(writingLineClassName);
 

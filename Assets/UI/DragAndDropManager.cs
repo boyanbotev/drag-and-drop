@@ -41,8 +41,7 @@ public class DragAndDropManager : MonoBehaviour
 
         foreach (string letter in dragAndDropSequence[itemIndex].letters)
         {
-            var draggableLetter = new DraggableLetter();
-            draggableLetter.Setup(letter);
+            var draggableLetter = new DraggableLetter(letter);
 
             draggableLetter.RegisterCallback<PointerDownEvent>(evt => OnDragStart(evt, draggableLetter));
             draggableLetter.RegisterCallback<PointerMoveEvent>(evt => OnDrag(evt, draggableLetter));
@@ -59,7 +58,6 @@ public class DragAndDropManager : MonoBehaviour
         for (int i = 0; i < dragAndDropSequence[itemIndex].word.Length; i++)
         {
             var writingLine = new WritingLine();
-            writingLine.SetUp();
 
             writingLinesEl.Add(writingLine);
             writingLines.Add(writingLine);
@@ -70,9 +68,10 @@ public class DragAndDropManager : MonoBehaviour
     {
         imageEl.Clear();
 
-        Image image = new Image();
-        image.image = dragAndDropSequence[itemIndex].texture;
-        image.AddToClassList("image");
+        var item = dragAndDropSequence[itemIndex];
+
+        ClickableImage image = new(item.word);
+        image.image = item.texture;
         imageEl.Add(image);
     }
 
@@ -80,7 +79,7 @@ public class DragAndDropManager : MonoBehaviour
     private void OnDragStart(PointerDownEvent evt, DraggableLetter letter)
     {
         draggedElement = letter;
-        letter.CalculatePos();
+        letter.Select();
         isDragging = true;
         letter.CaptureMouse();
     }
