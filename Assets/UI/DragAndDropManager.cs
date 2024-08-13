@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class DragAndDropManager : MonoBehaviour
 {
+    public static event Action<string> onCorrectWord;
     [SerializeField] DragAndDropItem[] dragAndDropSequence;
     private int itemIndex = 0;
 
@@ -171,7 +173,8 @@ public class DragAndDropManager : MonoBehaviour
         if (joinedWord == dragAndDropSequence[itemIndex].word)
         {
             Debug.Log("VICTORY");
-            ResetGame();
+            onCorrectWord?.Invoke(dragAndDropSequence[itemIndex].word);
+            StartCoroutine("WinRoutine");
         }
     }
 
@@ -213,5 +216,11 @@ public class DragAndDropManager : MonoBehaviour
         Rect rect1 = new(a.worldBound.position, a.worldBound.size);
         Rect rect2 = new(b.worldBound.position, b.worldBound.size);
         return rect1.Overlaps(rect2);
+    }
+
+    private IEnumerator WinRoutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        ResetGame();
     }
 }

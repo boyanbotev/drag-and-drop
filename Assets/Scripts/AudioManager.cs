@@ -12,12 +12,14 @@ public class AudioManager : MonoBehaviour
     {
         DraggableLetter.onSelect += PlaySound;
         ClickableImage.onClick += PlaySound;
+        DragAndDropManager.onCorrectWord += PlaySound;
     }
 
     private void OnDisable()
     {
         DraggableLetter.onSelect -= PlaySound;
         ClickableImage.onClick -= PlaySound;
+        DragAndDropManager.onCorrectWord -= PlaySound;
     }
 
 
